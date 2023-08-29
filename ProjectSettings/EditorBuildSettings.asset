@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/New Scene.unity
     guid: 0de7ae9c1f9cde94eadcf9bed0c01cc9
+  - enabled: 1
+    path: Assets/Scenes/UI-SequenceInputWindowScene.unity
+    guid: 2cc4c2417044c07498f4c06c0047a26b
   m_configObjects: {}

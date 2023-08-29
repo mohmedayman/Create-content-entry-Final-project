@@ -27,7 +27,7 @@ public class MenuManager : MonoBehaviour
     }
     public void Sequnce()
     {
-        SceneManager.LoadScene("SequnceScene");
+        SceneManager.LoadScene("UI-SequenceInputWindowScene");
     }
     public void ContentWithImage()
     {

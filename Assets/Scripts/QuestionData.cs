@@ -9,4 +9,6 @@ public class QuestionData
     public List<string> Answers = new List<string>();
     public string RightAnswer;
     public string Image;
+    public string QuestionType;
+
 }
