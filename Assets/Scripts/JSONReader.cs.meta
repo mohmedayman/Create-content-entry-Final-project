@@ -3,7 +3,15 @@ guid: 3ae221030091a0d4da36e3af2eb094b8
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - ContentWithoutImage: {instanceID: 0}
+  - ContentWith1Image: {instanceID: 0}
+  - ContentWith2Image: {instanceID: 0}
+  - ContentWith3Image: {instanceID: 0}
+  - ScorePanel: {instanceID: 0}
+  - Complete: {instanceID: 0}
+  - MCQ: {instanceID: 0}
+  - Sequence: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

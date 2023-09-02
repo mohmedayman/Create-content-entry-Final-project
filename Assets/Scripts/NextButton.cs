@@ -15,7 +15,6 @@ public class NextButton : MonoBehaviour
         Button NextButton = GetComponent<Button>();
         //action += reader.GetNextSlide();
         NextButton.onClick.AddListener(LoadScene);
-        
     }
     public void LoadScene()
     {

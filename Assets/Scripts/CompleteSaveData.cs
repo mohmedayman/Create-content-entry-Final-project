@@ -37,8 +37,6 @@ public class CompleteSaveData : MonoBehaviour
             questionData.QuestionText = Quesion.text;
             questionData.Title = Title.text;
             questionData.RightAnswer = RightAnswer.text;
-            
-
             //storing in json
             questionDataWrapper.questionDataList.Add(questionData);
             string updatedJson = JsonUtility.ToJson(questionDataWrapper);
