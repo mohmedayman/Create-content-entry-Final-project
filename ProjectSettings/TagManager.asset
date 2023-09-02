@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - image
+  - canvas
+  - answer
+  - MCQ
+  - SEQ
   layers:
   - Default
   - TransparentFX

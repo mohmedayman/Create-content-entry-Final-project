@@ -14,10 +14,10 @@ public class JSONReader : MonoBehaviour
     public GameObject ContentWith2Image;
     public GameObject ContentWith3Image;
     public GameObject ScorePanel;
-    //public GameObject MCQ;
     public GameObject Complete;
-    //public GameObject Sequence;
-    
+    public GameObject MCQ;
+    public GameObject Sequence;
+
     private string jsonFilePath = Application.dataPath + "/QuestionData.json";
     QuestionDataWrapper questionDataWrapper = new QuestionDataWrapper();
     int i = 0;
@@ -54,6 +54,8 @@ public class JSONReader : MonoBehaviour
             ContentWith2Image.SetActive(false);
             ContentWith3Image.SetActive(false);
             Complete.SetActive(false);
+            Sequence.SetActive(false);
+            MCQ.SetActive(false);
             ScorePanel.SetActive(true);
         }
         else
@@ -64,6 +66,7 @@ public class JSONReader : MonoBehaviour
             switch (QType)
             {
                 case "Content":
+                    MCQ.SetActive(false);
                     if (NumberOfImages == 0)
                     {
                         ContentWithoutImage.SetActive(true);
@@ -100,34 +103,34 @@ public class JSONReader : MonoBehaviour
                         ContentWith3Image.GetComponent<ContentReader>().GetContent(questionDataWrapper.questionDataList[i]);
                     }
                     Complete.SetActive(false);
-
+                    
                     break;
                 case "Fill the blank":
+                    MCQ.SetActive(false);
                     ContentWithoutImage.SetActive(false);
                     ContentWith1Image.SetActive(false);
                     ContentWith2Image.SetActive(false);
                     ContentWith3Image.SetActive(false);
-                    Complete.SetActive(true);
+                    Complete.SetActive(true);           
                     Complete.GetComponent<CompleteJSONReader>().GetQuestion(questionDataWrapper.questionDataList[i]);
-                    //Complete.GetComponent<>
                     break;
-                //case "MCQ":
-                //    ContentWithoutImage.SetActive(false);
-                //    ContentWith1Image.SetActive(false);
-                //    ContentWith2Image.SetActive(false);
-                //    ContentWith3Image.SetActive(false);
-                //    Complete.SetActive(false);
-                //    //MCQ.SetActive(true);
-                //    break;
-                //    //case "SequenceChoice":
-                //    ContentWithoutImage.SetActive(false);
-                //    ContentWith1Image.SetActive(false);
-                //    ContentWith2Image.SetActive(false);
-                //    ContentWith3Image.SetActive(false);
-                //    Complete.SetActive(false);
-                //    //MCQ.SetActive(false);
-                //    //Sequence.SetActive(false);
-                //    //    break;
+                case "MCQ":
+                    ContentWithoutImage.SetActive(false);
+                    ContentWith1Image.SetActive(false);
+                    ContentWith2Image.SetActive(false);
+                    ContentWith3Image.SetActive(false);
+                    MCQ.SetActive(true);
+                    MCQ.GetComponent<MultibleChoiceReadingManger>().GetQuestion(questionDataWrapper.questionDataList[i]);
+                    break;
+                case "SequenceChoice":
+                    MCQ.SetActive(false);
+                    ContentWithoutImage.SetActive(false);
+                    ContentWith1Image.SetActive(false);
+                    ContentWith2Image.SetActive(false);
+                    ContentWith3Image.SetActive(false);
+                    Sequence.SetActive(true);
+                    Sequence.GetComponent<SequenceReadingManger>().GetQuestion(questionDataWrapper.questionDataList[i]);
+                    break;
 
                 default:
                     break;
