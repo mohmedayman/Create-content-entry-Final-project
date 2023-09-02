@@ -27,7 +27,7 @@ public class SaveDataSequence : MonoBehaviour
         }
         QuestionData questionData = new QuestionData();
         questionData.QuestionText = Quesion.text;
-        questionData.QuestionTitle = Title.text;
+        questionData.Title = Title.text;
         getImage();
         if (ValidateQuestion())
         {
@@ -35,7 +35,7 @@ public class SaveDataSequence : MonoBehaviour
             string imagePath = SaveImageToFile();
             questionData.Image = imagePath; // Store the image path instead of byte array
             questionData.QuestionText = Quesion.text;
-            questionData.QuestionTitle = Title.text;
+            questionData.Title = Title.text;
             questionData.RightAnswer = "";
             questionData.QuestionType = "SequenceChoice";
             foreach (var item in dropdown.options) // store the answers

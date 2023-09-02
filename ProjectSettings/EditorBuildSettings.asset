@@ -32,4 +32,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/UI-SequenceInputWindowScene.unity
     guid: 2cc4c2417044c07498f4c06c0047a26b
+  - enabled: 1
+    path: Assets/Scenes/DisplayAppScenes/StartScene.unity
+    guid: a42afc85f16f765429acc41daba19822
+  - enabled: 1
+    path: Assets/Scenes/DisplayAppScenes/UI-CompleteDisplayWindowScene.unity
+    guid: 1248af792fa36dd4ebf4c7ea9c240f60
   m_configObjects: {}

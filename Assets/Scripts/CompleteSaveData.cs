@@ -17,16 +17,17 @@ public class CompleteSaveData : MonoBehaviour
 
     public void SaveIntoJson()
     {
-        string jsonPath = Application.dataPath + "/CompleteQuestionData.json";
+        string jsonPath = Application.dataPath + "/QuestionData.json";
         QuestionDataWrapper questionDataWrapper = new QuestionDataWrapper();
         if (File.Exists(jsonPath))
         {
             string existingJson = File.ReadAllText(jsonPath);
             questionDataWrapper = JsonUtility.FromJson<QuestionDataWrapper>(existingJson);
         }
-        CompleteQuestionData questionData = new CompleteQuestionData();
+        QuestionData questionData = new QuestionData();
         questionData.QuestionText = Quesion.text;
-        questionData.QuestionTitle = Title.text;
+        questionData.Title = Title.text;
+        questionData.QuestionType = "Fill the blank";
         getImage();
         if (ValidateQuestion())
         {
@@ -34,12 +35,12 @@ public class CompleteSaveData : MonoBehaviour
             string imagePath = SaveImageToFile();
             questionData.Image = imagePath; // Store the image path instead of byte array(**)
             questionData.QuestionText = Quesion.text;
-            questionData.QuestionTitle = Title.text;
+            questionData.Title = Title.text;
             questionData.RightAnswer = RightAnswer.text;
             
 
             //storing in json
-            questionDataWrapper.CompletequestionDataList.Add(questionData);
+            questionDataWrapper.questionDataList.Add(questionData);
             string updatedJson = JsonUtility.ToJson(questionDataWrapper);
             File.WriteAllText(jsonPath, updatedJson);
         }
@@ -83,7 +84,7 @@ public class CompleteSaveData : MonoBehaviour
 
     public class QuestionDataWrapper
     {
-        public List<CompleteQuestionData> CompletequestionDataList = new List<CompleteQuestionData>();
+        public List<QuestionData> questionDataList = new List<QuestionData>();
     }
 
 }

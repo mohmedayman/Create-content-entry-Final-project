@@ -26,7 +26,8 @@ public class SaveData : MonoBehaviour
         }
         QuestionData questionData = new QuestionData();
         questionData.QuestionText = Quesion.text;
-        questionData.QuestionTitle = Title.text;
+        questionData.Title = Title.text;
+        questionData.QuestionType = "MCQ";
         getImage();
         if (ValidateQuestion())
         {
@@ -34,7 +35,7 @@ public class SaveData : MonoBehaviour
             string imagePath = SaveImageToFile();
             questionData.Image = imagePath; // Store the image path instead of byte array(**)
             questionData.QuestionText = Quesion.text;
-            questionData.QuestionTitle = Title.text;
+            questionData.Title = Title.text;
             questionData.RightAnswer = RightAnswer.text;
             foreach (var item in dropdown.options) // store the answers
             {

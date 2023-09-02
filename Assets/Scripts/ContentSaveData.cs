@@ -18,16 +18,17 @@ public class ContentSaveData : MonoBehaviour
     public void SaveIntoJson()
     {
         Debug.Log("hi");
-        string jsonPath = Application.dataPath + "/ContentData.json";
+        string jsonPath = Application.dataPath + "/QuestionData.json";
         ContentDataWrapper contentDataWrapper = new ContentDataWrapper();
         if (File.Exists(jsonPath))
         {
             string existingJson = File.ReadAllText(jsonPath);
             contentDataWrapper = JsonUtility.FromJson<ContentDataWrapper>(existingJson);
         }
-        ContentData contentData = new ContentData();
+        QuestionData contentData = new QuestionData();
         contentData.ContentText = Content.text;
-        contentData.ContentTitle = Title.text;
+        contentData.Title = Title.text;
+        contentData.QuestionType = "Content";
         getImage();
         if (ValidateContent())
         {
@@ -36,11 +37,11 @@ public class ContentSaveData : MonoBehaviour
             for (int i = 0; i < imageTexture.Count; i++)
             {
                 string imagePath = SaveImageToFile(i);
-                contentData.Image.Add(imagePath); // Store the image path instead of byte array(**)
+                contentData.ContentImages.Add(imagePath); // Store the image path instead of byte array(**)
             }
            
             contentData.ContentText = Content.text;
-            contentData.ContentTitle = Title.text;
+            contentData.Title = Title.text;
             //contentData.RightAnswer = RightAnswer.text;
             //foreach (var item in dropdown.options) // store the answers
             //{
@@ -48,7 +49,7 @@ public class ContentSaveData : MonoBehaviour
             //}
 
             //storing in json
-            contentDataWrapper.contentDataList.Add(contentData);
+            contentDataWrapper.questionDataList.Add(contentData);
             string updatedJson = JsonUtility.ToJson(contentDataWrapper);
             File.WriteAllText(jsonPath, updatedJson);
         }
@@ -101,7 +102,7 @@ public class ContentSaveData : MonoBehaviour
 
     public class ContentDataWrapper
     {
-        public List<ContentData> contentDataList = new List<ContentData>();
+        public List<QuestionData> questionDataList = new List<QuestionData>();
     }
 
 }
