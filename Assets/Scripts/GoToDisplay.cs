@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class GoToDisplay : MonoBehaviour
 {
+    //public JSONReader jreader;
     void Start()
     {
         Button back = GetComponent<Button>();
@@ -13,6 +14,12 @@ public class GoToDisplay : MonoBehaviour
     }
     public void GoToDisplayMenu()
     {
+        //jreader.Reset();
+        //PlayerPrefs.SetInt("LastSlideID", 0);
         SceneManager.LoadScene("UI-CompleteDisplayWindowScene");
+    }
+    public void TryAgain()
+    {
+        PlayerPrefs.SetInt("LastSlideID", 0);
     }
 }

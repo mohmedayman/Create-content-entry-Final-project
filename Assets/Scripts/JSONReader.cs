@@ -6,6 +6,7 @@ using UnityEngine.SocialPlatforms.Impl;
 using TMPro;
 using Unity.VisualScripting;
 using System;
+using System.Collections;
 
 public class JSONReader : MonoBehaviour
 {
@@ -20,7 +21,11 @@ public class JSONReader : MonoBehaviour
 
     private string jsonFilePath = Application.dataPath + "/QuestionData.json";
     QuestionDataWrapper questionDataWrapper = new QuestionDataWrapper();
-    int i = 0;
+    int SlideIndex = 0;
+    public TextMeshProUGUI CompletetimerText;
+    public TextMeshProUGUI MCQtimerText;
+    public TextMeshProUGUI SequencetimerText;
+    private Coroutine timerCoroutine;
     void Start()
     {
         string jsonString = File.ReadAllText(jsonFilePath);
@@ -38,15 +43,21 @@ public class JSONReader : MonoBehaviour
         });
         string sortedJsonString= JsonUtility.ToJson(questionDataWrapper);
         File.WriteAllText(jsonFilePath, sortedJsonString);
-        
+        SlideIndex = PlayerPrefs.GetInt("LastSlideID", 0);
         
     }
     public void  GetNextSlide()
     {
+        if (timerCoroutine != null)
+        {
+            StopCoroutine(timerCoroutine);
+            timerCoroutine = null;
+        }
         //Debug.Log(questionDataWrapper.questionDataList[i].QuestionType);
         //Debug.Log(i);
-        if (i >= questionDataWrapper.questionDataList.Count)
+        if (SlideIndex >= questionDataWrapper.questionDataList.Count)
         {
+            //SlideIndex = 0;
             Debug.Log("Finished");
             
             ContentWithoutImage.SetActive(false);
@@ -61,8 +72,8 @@ public class JSONReader : MonoBehaviour
         else
         {
             //Debug.Log(i +" "+ questionDataWrapper.questionDataList.Count);
-            string QType = questionDataWrapper.questionDataList[i].QuestionType;
-            int NumberOfImages = questionDataWrapper.questionDataList[i].ContentImages.Count;
+            string QType = questionDataWrapper.questionDataList[SlideIndex].QuestionType;
+            int NumberOfImages = questionDataWrapper.questionDataList[SlideIndex].ContentImages.Count;
             switch (QType)
             {
                 case "Content":
@@ -73,7 +84,7 @@ public class JSONReader : MonoBehaviour
                         ContentWith1Image.SetActive(false);
                         ContentWith2Image.SetActive(false);
                         ContentWith3Image.SetActive(false);
-                        ContentWithoutImage.GetComponent<ContentReader>().GetContent(questionDataWrapper.questionDataList[i]);
+                        ContentWithoutImage.GetComponent<ContentReader>().GetContent(questionDataWrapper.questionDataList[SlideIndex]);
                     }
                     else if (NumberOfImages == 1)
                     {
@@ -82,7 +93,7 @@ public class JSONReader : MonoBehaviour
                         ContentWith1Image.SetActive(true);
                         ContentWith2Image.SetActive(false);
                         ContentWith3Image.SetActive(false);
-                        ContentWith1Image.GetComponent<ContentReader>().GetContent(questionDataWrapper.questionDataList[i]);
+                        ContentWith1Image.GetComponent<ContentReader>().GetContent(questionDataWrapper.questionDataList[SlideIndex]);
                     }
                     else if (NumberOfImages == 2)
                     {
@@ -91,7 +102,7 @@ public class JSONReader : MonoBehaviour
                         ContentWith1Image.SetActive(false);
                         ContentWith2Image.SetActive(true);
                         ContentWith3Image.SetActive(false);
-                        ContentWith2Image.GetComponent<ContentReader>().GetContent(questionDataWrapper.questionDataList[i]);
+                        ContentWith2Image.GetComponent<ContentReader>().GetContent(questionDataWrapper.questionDataList[SlideIndex]);
                     }
                     else
                     {
@@ -100,7 +111,7 @@ public class JSONReader : MonoBehaviour
                         ContentWith1Image.SetActive(false);
                         ContentWith2Image.SetActive(false);
                         ContentWith3Image.SetActive(true);
-                        ContentWith3Image.GetComponent<ContentReader>().GetContent(questionDataWrapper.questionDataList[i]);
+                        ContentWith3Image.GetComponent<ContentReader>().GetContent(questionDataWrapper.questionDataList[SlideIndex]);
                     }
                     Complete.SetActive(false);
                     Sequence.SetActive(false);
@@ -116,7 +127,8 @@ public class JSONReader : MonoBehaviour
                     Sequence.SetActive(false);
                     MCQ.SetActive(false);
                     Complete.SetActive(true);           
-                    Complete.GetComponent<CompleteJSONReader>().GetQuestion(questionDataWrapper.questionDataList[i]);
+                    Complete.GetComponent<CompleteJSONReader>().GetQuestion(questionDataWrapper.questionDataList[SlideIndex]);
+                    timerCoroutine = StartCoroutine(StartTimer(20f,CompletetimerText));
                     break;
                 case "MCQ":
                     ContentWithoutImage.SetActive(false);
@@ -125,7 +137,8 @@ public class JSONReader : MonoBehaviour
                     ContentWith3Image.SetActive(false);
                     Sequence.SetActive(false);
                     MCQ.SetActive(true);
-                    MCQ.GetComponent<MultibleChoiceReadingManger>().GetQuestion(questionDataWrapper.questionDataList[i]);
+                    MCQ.GetComponent<MultibleChoiceReadingManger>().GetQuestion(questionDataWrapper.questionDataList[SlideIndex]);
+                    timerCoroutine = StartCoroutine(StartTimer(20f, MCQtimerText));
                     break;
                 case "SequenceChoice":
                     MCQ.SetActive(false);
@@ -134,16 +147,40 @@ public class JSONReader : MonoBehaviour
                     ContentWith2Image.SetActive(false);
                     ContentWith3Image.SetActive(false);
                     Sequence.SetActive(true);
-                    Sequence.GetComponent<SequenceReadingManger>().GetQuestion(questionDataWrapper.questionDataList[i]);
+                    Sequence.GetComponent<SequenceReadingManger>().GetQuestion(questionDataWrapper.questionDataList[SlideIndex]);
+                    timerCoroutine = StartCoroutine(StartTimer(20f, SequencetimerText));
                     break;
 
                 default:
                     break;
             }
         }
-        i++;
+        PlayerPrefs.SetInt("LastSlideID", SlideIndex);
+        SlideIndex++;
+        
     }
-    
+    IEnumerator StartTimer(float duration, TextMeshProUGUI timerText)
+    {
+        float timer = duration;
+
+        while (timer > 0f)
+        {
+            // Update the timer text UI
+            timerText.text = timer.ToString("F1");
+
+            yield return new WaitForSeconds(0.1f); // Update the timer every 0.1 seconds
+
+            timer -= 0.1f;
+        }
+
+        GetNextSlide();
+    }
+    public void Reset()
+    {
+        SlideIndex = 0;
+        PlayerPrefs.SetInt("LastSlideID", SlideIndex);
+    }
+
     public class QuestionDataWrapper
     {
         public List<QuestionData> questionDataList = new List<QuestionData>();
