@@ -26,6 +26,7 @@ public class JSONReader : MonoBehaviour
     public TextMeshProUGUI MCQtimerText;
     public TextMeshProUGUI SequencetimerText;
     private Coroutine timerCoroutine;
+    public float TimerDuration=20f;
     void Start()
     {
         string jsonString = File.ReadAllText(jsonFilePath);
@@ -128,7 +129,7 @@ public class JSONReader : MonoBehaviour
                     MCQ.SetActive(false);
                     Complete.SetActive(true);           
                     Complete.GetComponent<CompleteJSONReader>().GetQuestion(questionDataWrapper.questionDataList[SlideIndex]);
-                    timerCoroutine = StartCoroutine(StartTimer(20f,CompletetimerText));
+                    timerCoroutine = StartCoroutine(StartTimer(TimerDuration, CompletetimerText));
                     break;
                 case "MCQ":
                     ContentWithoutImage.SetActive(false);
@@ -138,7 +139,7 @@ public class JSONReader : MonoBehaviour
                     Sequence.SetActive(false);
                     MCQ.SetActive(true);
                     MCQ.GetComponent<MultibleChoiceReadingManger>().GetQuestion(questionDataWrapper.questionDataList[SlideIndex]);
-                    timerCoroutine = StartCoroutine(StartTimer(20f, MCQtimerText));
+                    timerCoroutine = StartCoroutine(StartTimer(TimerDuration, MCQtimerText));
                     break;
                 case "SequenceChoice":
                     MCQ.SetActive(false);
@@ -148,7 +149,7 @@ public class JSONReader : MonoBehaviour
                     ContentWith3Image.SetActive(false);
                     Sequence.SetActive(true);
                     Sequence.GetComponent<SequenceReadingManger>().GetQuestion(questionDataWrapper.questionDataList[SlideIndex]);
-                    timerCoroutine = StartCoroutine(StartTimer(20f, SequencetimerText));
+                    timerCoroutine = StartCoroutine(StartTimer(TimerDuration, SequencetimerText));
                     break;
 
                 default:
