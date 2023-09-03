@@ -20,6 +20,7 @@ public class MultibleChoiceReadingManger : MonoBehaviour
     private List<string> TempAnswers;
     private string RightAnswer;
     private UnityAction<string> action;
+    public JSONReader reader;
     public void GetQuestion(QuestionData questionData)
     {
         quetsionText.text = questionData.QuestionText;
@@ -80,6 +81,8 @@ public class MultibleChoiceReadingManger : MonoBehaviour
         Transform childOfButton = clickedButton.transform.GetChild(0);
         TextMeshProUGUI textMesh = childOfButton.GetComponent<TextMeshProUGUI>();
         if (isRightAnswer(textMesh.text))
+            
             ScorePanel.GetComponent<Score>().ChangeScore();
+        reader.GetNextSlide();
     }
 }

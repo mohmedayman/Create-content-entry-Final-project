@@ -103,7 +103,9 @@ public class JSONReader : MonoBehaviour
                         ContentWith3Image.GetComponent<ContentReader>().GetContent(questionDataWrapper.questionDataList[i]);
                     }
                     Complete.SetActive(false);
-                    
+                    Sequence.SetActive(false);
+                    MCQ.SetActive(false);
+
                     break;
                 case "Fill the blank":
                     MCQ.SetActive(false);
@@ -111,6 +113,8 @@ public class JSONReader : MonoBehaviour
                     ContentWith1Image.SetActive(false);
                     ContentWith2Image.SetActive(false);
                     ContentWith3Image.SetActive(false);
+                    Sequence.SetActive(false);
+                    MCQ.SetActive(false);
                     Complete.SetActive(true);           
                     Complete.GetComponent<CompleteJSONReader>().GetQuestion(questionDataWrapper.questionDataList[i]);
                     break;
@@ -119,6 +123,7 @@ public class JSONReader : MonoBehaviour
                     ContentWith1Image.SetActive(false);
                     ContentWith2Image.SetActive(false);
                     ContentWith3Image.SetActive(false);
+                    Sequence.SetActive(false);
                     MCQ.SetActive(true);
                     MCQ.GetComponent<MultibleChoiceReadingManger>().GetQuestion(questionDataWrapper.questionDataList[i]);
                     break;

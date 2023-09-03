@@ -17613,6 +17613,10 @@ PrefabInstance:
       propertyPath: ImagePlace
       value: 
       objectReference: {fileID: 1576483723}
+    - target: {fileID: 3832864049793841054, guid: 711615e991fff9641bd7a4afcc8bd6f7, type: 3}
+      propertyPath: ScorePanel
+      value: 
+      objectReference: {fileID: 85678472}
     - target: {fileID: 7989217063198403327, guid: 711615e991fff9641bd7a4afcc8bd6f7, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 322
@@ -20423,6 +20427,10 @@ PrefabInstance:
       propertyPath: canvas
       value: 
       objectReference: {fileID: 1741261958}
+    - target: {fileID: 6000529302390092885, guid: 2f887096efccbe54186cdbd30b91fed4, type: 3}
+      propertyPath: reader
+      value: 
+      objectReference: {fileID: 1764197012}
     - target: {fileID: 6000529302390092885, guid: 2f887096efccbe54186cdbd30b91fed4, type: 3}
       propertyPath: TitleText
       value: 
@@ -23459,7 +23467,7 @@ GameObject:
   - component: {fileID: 1908207472}
   - component: {fileID: 1908207475}
   m_Layer: 0
-  m_Name: Button (Legacy) (1)
+  m_Name: NextButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23529,9 +23537,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1908207475}
-        m_TargetAssemblyTypeName: NextButton, Assembly-CSharp
-        m_MethodName: LoadScene
+      - m_Target: {fileID: 950240664}
+        m_TargetAssemblyTypeName: SequenceReadingManger, Assembly-CSharp
+        m_MethodName: ScoreController
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

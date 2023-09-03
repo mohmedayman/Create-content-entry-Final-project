@@ -9,6 +9,7 @@ TagManager:
   - answer
   - MCQ
   - SEQ
+  - counter
   layers:
   - Default
   - TransparentFX
