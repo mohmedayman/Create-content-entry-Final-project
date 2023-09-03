@@ -60,10 +60,7 @@ public class SaveDataSequence : MonoBehaviour
             if (image != null)
             {
                 imageTexture = image.sprite.texture;
-                Debug.LogError("Found image: ");
             }
-            else
-                Debug.LogError("Image not found");
         }
     }
     public bool ValidateQuestion()

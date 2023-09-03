@@ -5,6 +5,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using static UnityEditor.Progress;
+using UnityEngine.SceneManagement;
 
 public class SaveData : MonoBehaviour
 {
@@ -12,7 +14,6 @@ public class SaveData : MonoBehaviour
     [SerializeField] private TextMeshProUGUI Title;
     [SerializeField] private TextMeshProUGUI Quesion;
     [SerializeField] private TextMeshProUGUI RightAnswer;
-    [SerializeField] private Dropdown dropdown;
     private Texture2D imageTexture;
 
     public void SaveIntoJson()
@@ -37,15 +38,19 @@ public class SaveData : MonoBehaviour
             questionData.QuestionText = Quesion.text;
             questionData.Title = Title.text;
             questionData.RightAnswer = RightAnswer.text;
-            foreach (var item in dropdown.options) // store the answers
+            GameObject[] answerObjects = GameObject.FindGameObjectsWithTag("answer");
+            foreach (GameObject obj in answerObjects)
             {
-                questionData.Answers.Add(item.text);
+                Transform childOfAnswer = obj.transform.GetChild(1);
+                TextMeshProUGUI textMesh = childOfAnswer.GetComponent<TextMeshProUGUI>();
+                questionData.Answers.Add(textMesh.text);
             }
 
             //storing in json
             questionDataWrapper.questionDataList.Add(questionData);
             string updatedJson = JsonUtility.ToJson(questionDataWrapper);
             File.WriteAllText(jsonPath, updatedJson);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
     }
@@ -58,19 +63,20 @@ public class SaveData : MonoBehaviour
             if (image != null)
             {
                 imageTexture = image.sprite.texture;
-                Debug.LogError("Found image: ");
             }
-            else
-                Debug.LogError("Image not found");
         }
     }
     public bool ValidateQuestion()
     {
-        if(Quesion.text.Length > 0 &&  Title.text.Length > 0 && imageTexture!=null && dropdown.options.Count >= 2)
+        if(Quesion.text.Length > 0 &&  Title.text.Length > 0 && imageTexture!=null)
         {
-            foreach (var item in dropdown.options)
+            GameObject[] answerObjects = GameObject.FindGameObjectsWithTag("answer");
+            foreach (GameObject obj in answerObjects)
             {
-                if(RightAnswer.text.Equals(item.text))
+                
+                Transform childOfAnswer = obj.transform.GetChild(1);
+                TextMeshProUGUI textMesh = childOfAnswer.GetComponent<TextMeshProUGUI>();
+                if (RightAnswer.text.Equals(textMesh.text))
                     return true;
             }
             return false;

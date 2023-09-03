@@ -10,6 +10,7 @@ TagManager:
   - MCQ
   - SEQ
   - counter
+  - AnswerTextMCQ
   layers:
   - Default
   - TransparentFX
