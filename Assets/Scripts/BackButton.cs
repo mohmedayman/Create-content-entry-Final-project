@@ -5,15 +5,24 @@ using UnityEngine.UI;
 
 public class BackButton : MonoBehaviour
 {
+    public Button backButton;
+    private string SceneName = "New Scene";
     private void Start()
     {
-        Button backButton = GetComponent<Button>();
-        backButton.onClick.AddListener(LoadMCQScene);
+       
     }
 
     private void LoadMCQScene()
     {
-        SceneManager.LoadScene("New Scene");
+        SceneManager.LoadScene(SceneName);
+    }
+    private void OnEnable()
+    {
+        backButton.onClick.AddListener(LoadMCQScene);
+    }
+    private void OnDisable()
+    {
+        backButton.onClick.RemoveAllListeners();
     }
 }
 

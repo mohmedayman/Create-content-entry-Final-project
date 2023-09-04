@@ -6,17 +6,25 @@ using UnityEngine.UI;
 
 public class GoToDisplay : MonoBehaviour
 {
-    //public JSONReader jreader;
+    
+    public Button back;
+    private string SceneName = "UI-CompleteDisplayWindowScene";
     void Start()
     {
-        Button back = GetComponent<Button>();
-        back.onClick.AddListener(GoToDisplayMenu);
+        
     }
     public void GoToDisplayMenu()
     {
-        //jreader.Reset();
-        //PlayerPrefs.SetInt("LastSlideID", 0);
-        SceneManager.LoadScene("UI-CompleteDisplayWindowScene");
+        
+        SceneManager.LoadScene(SceneName);
+    }
+    private void OnEnable()
+    {
+        back.onClick.AddListener(GoToDisplayMenu);
+    }
+    private void OnDisable()
+    {
+        back.onClick.RemoveAllListeners();
     }
     public void TryAgain()
     {

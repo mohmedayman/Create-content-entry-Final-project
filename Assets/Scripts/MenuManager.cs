@@ -4,46 +4,41 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
 {
-    //public GameObject menu_panel;
-    //public GameObject levels_panel;
-
-    //public void ShowQuestions()
-    //{
-    //    levels_panel.SetActive(true);
-    //    menu_panel.SetActive(false);
-    //}
-    //public void ShowMenu()
-    //{
-    //    levels_panel.SetActive(false);
-    //    menu_panel.SetActive(true);
-    //}
+    public const string UIMCQInputWindowScene = "UI-MCQInputWindowScene";
+    public const string UICompleteInputWindowScene = "UI-CompleteInputWindowScene";
+    public const string UISequenceInputWindowScene = "UI-SequenceInputWindowScene";
+    public const string UIInputWindowScene = "UI-InputWindowScene";
+    public const string UIInputWindowScene1 = "UI-InputWindowScene 1";
+    public const string UIInputWindowScene2 = "UI-InputWindowScene 2";
+    public const string UIInputWindowScene3 = "UI-InputWindowScene 3"; 
     public void MultipleChoise()
     {
-        SceneManager.LoadScene("UI-MCQInputWindowScene");
+        SceneManager.LoadScene(UIMCQInputWindowScene);
     }
     public void FillTheBlank()
     {
-        SceneManager.LoadScene("UI-CompleteInputWindowScene");
+        SceneManager.LoadScene(UICompleteInputWindowScene);
     }
     public void Sequnce()
     {
-        SceneManager.LoadScene("UI-SequenceInputWindowScene");
+        SceneManager.LoadScene(UISequenceInputWindowScene);
     }
     public void ContentWithImage()
     {
-        SceneManager.LoadScene("UI-InputWindowScene");
+        SceneManager.LoadScene(UIInputWindowScene);
     }public void ContentWithImage2()
     {
-        SceneManager.LoadScene("UI-InputWindowScene 1");
+        SceneManager.LoadScene(UIInputWindowScene1);
     }public void ContentWithImage3()
     {
-        SceneManager.LoadScene("UI-InputWindowScene 2");
+        SceneManager.LoadScene(UIInputWindowScene2);
     }public void ContentWithOutImage()
     {
-        SceneManager.LoadScene("UI-InputWindowScene 3");
+        SceneManager.LoadScene(UIInputWindowScene3);
     }
     public void Quit()
     {
         Application.Quit();
     }
+    
 }

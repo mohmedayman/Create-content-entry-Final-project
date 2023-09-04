@@ -7,18 +7,24 @@ using UnityEngine.UI;
 public class BackToStartButton : MonoBehaviour
 {
     // Start is called before the first frame update
+    public Button back ;
+    private string SceneName= "StartScene";
     void Start()
     {
-        Button back=GetComponent<Button>();
-        back.onClick.AddListener(GoToMenu);
+         
+        
     }
     public void GoToMenu()
     {
-        SceneManager.LoadScene("StartScene");
+        SceneManager.LoadScene(SceneName);
     }
     // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        
+        back.onClick.AddListener(GoToMenu);
+    }
+    private void OnDisable()
+    {
+        back.onClick.RemoveAllListeners();
     }
 }
