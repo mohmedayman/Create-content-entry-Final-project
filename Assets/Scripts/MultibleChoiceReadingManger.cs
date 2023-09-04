@@ -29,8 +29,11 @@ public class MultibleChoiceReadingManger : MonoBehaviour
         TempAnswers = new List<string>(questionData.Answers);
         RightAnswer = questionData.RightAnswer;
         Texture2D texture = LoadTextureFromFile(questionData.Image);
-        Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
-        ImagePlace.GetComponent<Image>().sprite = sprite;
+        if (texture != null)
+        {
+            Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+            ImagePlace.GetComponent<Image>().sprite = sprite;
+        }
         GenerateAnswers();
     }
     public void GenerateAnswers()

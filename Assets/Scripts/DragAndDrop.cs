@@ -15,10 +15,6 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         rectTransform = GetComponent<RectTransform>();
         answerObjects = GameObject.FindGameObjectsWithTag("answer");
     }
-    private void Update()
-    {
-        answerObjects = GameObject.FindGameObjectsWithTag("answer");
-    }
 
     public void OnDrag(PointerEventData eventData)
     {
@@ -33,6 +29,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        answerObjects = GameObject.FindGameObjectsWithTag("answer");
         foreach (GameObject obj in answerObjects)
         {
             if (obj == gameObject)
