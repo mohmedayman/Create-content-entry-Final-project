@@ -365,6 +365,7 @@
 "Assets/Scripts/ContentReader.cs"
 "Assets/Scripts/ContentSaveData.cs"
 "Assets/Scripts/DragAndDrop.cs"
+"Assets/Scripts/GetMcqAnswers.cs"
 "Assets/Scripts/GoToDisplay.cs"
 "Assets/Scripts/ImageLoader.cs"
 "Assets/Scripts/ImageUpload.cs"

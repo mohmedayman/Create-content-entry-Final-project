@@ -138,6 +138,7 @@ public class JSONReader : MonoBehaviour
                     ContentWith3Image.SetActive(false);
                     Sequence.SetActive(false);
                     MCQ.SetActive(true);
+                    MCQ.GetComponent<MultibleChoiceReadingManger>().DestroyAnswers();
                     MCQ.GetComponent<MultibleChoiceReadingManger>().GetQuestion(questionDataWrapper.questionDataList[SlideIndex]);
                     timerCoroutine = StartCoroutine(StartTimer(TimerDuration, MCQtimerText));
                     break;
@@ -148,6 +149,7 @@ public class JSONReader : MonoBehaviour
                     ContentWith2Image.SetActive(false);
                     ContentWith3Image.SetActive(false);
                     Sequence.SetActive(true);
+                    Sequence.GetComponent<SequenceReadingManger>().OnNextDestroy();
                     Sequence.GetComponent<SequenceReadingManger>().GetQuestion(questionDataWrapper.questionDataList[SlideIndex]);
                     timerCoroutine = StartCoroutine(StartTimer(TimerDuration, SequencetimerText));
                     break;

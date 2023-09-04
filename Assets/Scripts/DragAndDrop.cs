@@ -15,6 +15,10 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         rectTransform = GetComponent<RectTransform>();
         answerObjects = GameObject.FindGameObjectsWithTag("answer");
     }
+    private void Update()
+    {
+        answerObjects = GameObject.FindGameObjectsWithTag("answer");
+    }
 
     public void OnDrag(PointerEventData eventData)
     {

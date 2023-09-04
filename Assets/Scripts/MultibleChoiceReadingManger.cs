@@ -49,10 +49,20 @@ public class MultibleChoiceReadingManger : MonoBehaviour
             TempAnswers.RemoveAt(RandomAnswer);
             answerFieldInstance.transform.SetParent(canvas.transform, false);
             answerFieldInstance.name = i.ToString();
+            answerFieldInstance.tag = "MCQAnswer";
             action += ScoreController;
             answerFieldInstance.onClick.AddListener(() => ScoreController(answerFieldInstance.name));
             if (i%2!=0)
                 YPos -= 280;
+        }
+        YPos=-50;
+    }
+    public void DestroyAnswers()
+    {
+        GameObject[] gameObjects=GameObject.FindGameObjectsWithTag("MCQAnswer");
+        foreach (GameObject gameObject in gameObjects)
+        {
+            Destroy(gameObject);
         }
     }
     // Load a Texture2D from a file path
