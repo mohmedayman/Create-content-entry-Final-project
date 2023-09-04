@@ -11,6 +11,7 @@ public class NewAnswer : MonoBehaviour
     [SerializeField] private Button AddNewQuestion;
     [SerializeField] private GameObject Canvas;
     [SerializeField] private GameObject RightAnswerField;
+    public static int NumOfAnswersFromDrop;
     private int XPos;
     private int YPos = -80;
     public void AddNewAnswer()
@@ -31,6 +32,7 @@ public class NewAnswer : MonoBehaviour
             if (i % 2 != 0)
                     YPos -= 210;
         }
+        NumOfAnswersFromDrop = dropdown.value;
         dropdown.gameObject.SetActive(false);
         AddNewQuestion.gameObject.SetActive(true);
         answer.gameObject.SetActive(true);

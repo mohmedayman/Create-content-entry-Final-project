@@ -25,13 +25,14 @@ public class SaveData : MonoBehaviour
             string existingJson = File.ReadAllText(jsonPath);
             questionDataWrapper = JsonUtility.FromJson<QuestionDataWrapper>(existingJson);
         }
-        QuestionData questionData = new QuestionData();
-        questionData.QuestionText = Quesion.text;
-        questionData.Title = Title.text;
-        questionData.QuestionType = "MCQ";
+
         getImage();
         if (ValidateQuestion())
         {
+            QuestionData questionData = new QuestionData();
+            questionData.QuestionText = Quesion.text;
+            questionData.Title = Title.text;
+            questionData.QuestionType = "MCQ";
             //storing data
             string imagePath = SaveImageToFile();
             questionData.Image = imagePath; // Store the image path instead of byte array(**)
@@ -62,13 +63,21 @@ public class SaveData : MonoBehaviour
             Image image = imageObject.GetComponent<Image>();
             if (image != null)
             {
-                imageTexture = image.sprite.texture;
+                try
+                {
+                    imageTexture = image.sprite.texture;
+                }
+                catch (Exception e)
+                {
+                    Debug.Log(e.ToString());
+                }
+
             }
         }
     }
     public bool ValidateQuestion()
     {
-        if(Quesion.text.Length > 0 &&  Title.text.Length > 0 && imageTexture!=null)
+        if(Quesion.text.Length > 0 &&  Title.text.Length > 0)
         {
             GameObject[] answerObjects = GameObject.FindGameObjectsWithTag("answer");
             foreach (GameObject obj in answerObjects)
