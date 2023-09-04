@@ -13,10 +13,27 @@ public class SaveDataSequence : MonoBehaviour
     [SerializeField] private TextMeshProUGUI Title;
     [SerializeField] private TextMeshProUGUI Quesion;
     [SerializeField] private Dropdown dropdown;
+    [SerializeField] private Dropdown Maindropdown;
 
     private Texture2D imageTexture;
+    private List<string> DropdownOptions;
+    private List<string> MainDropdownOptions;
+    void Start()
+    {
+        // Get the options from both dropdowns
+        DropdownOptions = new List<string>();
+        foreach (Dropdown.OptionData option in dropdown.options)
+        {
+            DropdownOptions.Add(option.text);
+        }
 
-    public void SaveIntoJson()
+        MainDropdownOptions = new List<string>();
+        foreach (Dropdown.OptionData option in Maindropdown.options)
+        {
+            MainDropdownOptions.Add(option.text);
+        }
+    }
+        public void SaveIntoJson()
     {
         string jsonPath = Application.dataPath + "/QuestionData.json";
         QuestionDataWrapper questionDataWrapper = new QuestionDataWrapper();
@@ -25,12 +42,13 @@ public class SaveDataSequence : MonoBehaviour
             string existingJson = File.ReadAllText(jsonPath);
             questionDataWrapper = JsonUtility.FromJson<QuestionDataWrapper>(existingJson);
         }
-        QuestionData questionData = new QuestionData();
-        questionData.QuestionText = Quesion.text;
-        questionData.Title = Title.text;
+
         getImage();
         if (ValidateQuestion())
         {
+            QuestionData questionData = new QuestionData();
+            questionData.QuestionText = Quesion.text;
+            questionData.Title = Title.text;
             //storing data
             string imagePath = SaveImageToFile();
             questionData.Image = imagePath; // Store the image path instead of byte array
@@ -59,14 +77,29 @@ public class SaveDataSequence : MonoBehaviour
             Image image = imageObject.GetComponent<Image>();
             if (image != null)
             {
-                imageTexture = image.sprite.texture;
+                try
+                {
+                    imageTexture = image.sprite.texture;
+                }
+                catch (Exception e)
+                {
+                    Debug.Log(e.ToString());
+                }
+                
             }
         }
     }
     public bool ValidateQuestion()
     {
-        if(Quesion.text.Length > 0 &&  Title.text.Length > 0 && imageTexture!=null && dropdown.options.Count >= 2)
+        if(Quesion.text.Length > 0 &&  Title.text.Length > 0 && dropdown.options.Count ==Maindropdown.options.Count && Maindropdown.options.Count == NewAnswer.NumOfAnswersFromDrop)
         {
+            foreach (string option in DropdownOptions)
+            {
+                if (!MainDropdownOptions.Contains(option))
+                {
+                    return false;
+                }
+            }
             return true;
         }
         else
