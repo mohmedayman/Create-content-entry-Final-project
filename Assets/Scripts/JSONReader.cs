@@ -19,7 +19,7 @@ public class JSONReader : MonoBehaviour
     public GameObject MCQ;
     public GameObject Sequence;
 
-    private string jsonFilePath = Application.dataPath + "/QuestionData.json";
+    
     QuestionDataWrapper questionDataWrapper = new QuestionDataWrapper();
     int SlideIndex = 0;
     public TextMeshProUGUI CompletetimerText;
@@ -29,7 +29,8 @@ public class JSONReader : MonoBehaviour
     public float TimerDuration=20f;
     void Start()
     {
-        string jsonString = File.ReadAllText(jsonFilePath);
+       string jsonFilePath = Application.dataPath + "/QuestionData.json";
+       string jsonString = File.ReadAllText(jsonFilePath);
         questionDataWrapper = JsonConvert.DeserializeObject<QuestionDataWrapper>(jsonString);
         questionDataWrapper.questionDataList.Sort((x, y) => {
             int titleComparison = string.Compare(x.Title, y.Title, StringComparison.OrdinalIgnoreCase);
